@@ -6,75 +6,29 @@
   <title>BlueMusic</title>
   <script src="https://cloudflare.com"></script>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(160deg, #060b19, #0f1c3f);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-bottom: 75px;
-    }
-    .header {
-      width: 100%;
-      max-width: 400px;
-      padding: 18px 20px 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    * { box-sizing: border-box; font-family: sans-serif; }
+    body { margin: 0; min-height: 100vh; background: linear-gradient(160deg, #060b19, #0f1c3f); color: white; display: flex; flex-direction: column; align-items: center; padding-bottom: 75px; }
+    .header { width: 100%; max-width: 400px; padding: 18px 20px 10px; display: flex; justify-content: space-between; align-items: center; }
     .logo { font-size: 20px; font-weight: bold; color: #3a86ff; }
     .badge { background: #1c2541; color: #60a5fa; font-size: 11px; padding: 4px 10px; border-radius: 12px; }
     .container { width: 100%; max-width: 370px; padding: 10px 15px; }
     .tela { display: none; }
     .tela.ativa { display: block; }
     .busca-box { display: flex; gap: 8px; margin-bottom: 15px; }
-    input[type="text"] {
-      flex: 1; padding: 12px 15px; border-radius: 25px;
-      border: 1px solid #2b3a67; background: #0b132b; color: white; outline: none;
-    }
-    .btn-buscar {
-      background: #3a86ff; border: none; color: white;
-      padding: 0 18px; border-radius: 25px; font-weight: bold; cursor: pointer;
-    }
+    input[type="text"] { flex: 1; padding: 12px 15px; border-radius: 25px; border: 1px solid #2b3a67; background: #0b132b; color: white; outline: none; }
+    .btn-buscar { background: #3a86ff; border: none; color: white; padding: 0 18px; border-radius: 25px; font-weight: bold; cursor: pointer; }
     .aviso-status { text-align: center; font-size: 13px; color: #7f9cf5; margin: 20px 0; }
-    .card-resultado {
-      background: #0b132b; border: 1px solid #1c2541; border-radius: 15px;
-      padding: 12px; display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
-    }
-    .thumb-icon {
-      width: 46px; height: 46px; background: #1c2541; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
-    }
+    .card-resultado { background: #0b132b; border: 1px solid #1c2541; border-radius: 15px; padding: 12px; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .thumb-icon { width: 46px; height: 46px; background: #1c2541; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
     .info-res { flex: 1; overflow: hidden; }
     .info-res h4 { margin: 0 0 4px; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .info-res span { font-size: 11px; color: #8d99ae; }
-    .btn-dl {
-      background: #1c2541; color: #3a86ff; border: 1px solid #3a86ff;
-      padding: 8px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; flex-shrink: 0;
-    }
-    .btn-dl:disabled { opacity: 0.5; cursor: wait; }
-    .player-card {
-      background-color: #0b132b; border: 1px solid #1c2541;
-      padding: 20px; border-radius: 24px; text-align: center;
-    }
-    .vinil-container {
-      width: 175px; height: 175px; margin: 0 auto 15px; border-radius: 50%;
-      background: radial-gradient(circle, #111 40%, #050505 100%);
-      padding: 12px; box-shadow: 0 8px 25px rgba(0, 168, 255, 0.25);
-      position: relative; display: flex; align-items: center; justify-content: center; border: 3px solid #1c2541;
-    }
-    .capa-vinil {
-      width: 100%; height: 100%; border-radius: 50%; background: #1c2541;
-      display: flex; align-items: center; justify-content: center; font-size: 45px; overflow: hidden;
-    }
+    .btn-dl { background: #1c2541; color: #3a86ff; border: 1px solid #3a86ff; padding: 8px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; flex-shrink: 0; }
+    .player-card { background-color: #0b132b; border: 1px solid #1c2541; padding: 20px; border-radius: 24px; text-align: center; }
+    .vinil-container { width: 175px; height: 175px; margin: 0 auto 15px; border-radius: 50%; background: radial-gradient(circle, #111 40%, #050505 100%); padding: 12px; box-shadow: 0 8px 25px rgba(0, 168, 255, 0.25); position: relative; display: flex; align-items: center; justify-content: center; border: 3px solid #1c2541; }
+    .capa-vinil { width: 100%; height: 100%; border-radius: 50%; background: #1c2541; display: flex; align-items: center; justify-content: center; font-size: 45px; overflow: hidden; }
     .capa-vinil img { width: 100%; height: 100%; object-fit: cover; }
-    .vinil-container::after {
-      content: ""; width: 22px; height: 22px; background: #0b132b;
-      border: 3px solid #3a86ff; border-radius: 50%; position: absolute;
-    }
+    .vinil-container::after { content: ""; width: 22px; height: 22px; background: #0b132b; border: 3px solid #3a86ff; border-radius: 50%; position: absolute; }
     @keyframes girar { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     .girando { animation: girar 6s linear infinite; }
     .pausado { animation-play-state: paused; }
@@ -85,55 +39,31 @@
     .controles { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; margin-bottom: 15px; }
     .controles button { background: none; border: none; color: #cbd5e1; font-size: 20px; cursor: pointer; }
     .controles button.ativo { color: #3a86ff; }
-    .btn-play {
-      background: linear-gradient(135deg, #3a86ff, #00509d) !important;
-      color: white !important; width: 52px; height: 52px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .btn-abrir {
-      display: inline-block; background: #1c2541; padding: 9px 16px;
-      border-radius: 20px; font-size: 12px; color: #60a5fa; cursor: pointer;
-    }
-    .playlist {
-      max-height: 120px; overflow-y: auto; text-align: left;
-      background: #070d1f; border-radius: 12px; padding: 8px;
-      border: 1px solid #1c2541; margin-top: 15px;
-    }
-    .item-musica {
-      padding: 8px; font-size: 12px; border-bottom: 1px solid #131c36;
-      cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #94a3b8;
-    }
+    .btn-play { background: linear-gradient(135deg, #3a86ff, #00509d) !important; color: white !important; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .btn-abrir { display: inline-block; background: #1c2541; padding: 9px 16px; border-radius: 20px; font-size: 12px; color: #60a5fa; cursor: pointer; }
+    .playlist { max-height: 120px; overflow-y: auto; text-align: left; background: #070d1f; border-radius: 12px; padding: 8px; border: 1px solid #1c2541; margin-top: 15px; }
+    .item-musica { padding: 8px; font-size: 12px; border-bottom: 1px solid #131c36; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #94a3b8; }
     .item-musica.tocando { color: #3a86ff; font-weight: bold; }
-    .nav-inferior {
-      position: fixed; bottom: 0; width: 100%; max-width: 400px;
-      background: #070d1f; border-top: 1px solid #1c2541;
-      display: flex; justify-content: space-around; padding: 10px 0;
-    }
-    .nav-btn {
-      background: none; border: none; color: #64748b;
-      font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer;
-    }
+    .nav-inferior { position: fixed; bottom: 0; width: 100%; max-width: 400px; background: #070d1f; border-top: 1px solid #1c2541; display: flex; justify-content: space-around; padding: 10px 0; }
+    .nav-btn { background: none; border: none; color: #64748b; font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
     .nav-btn.ativo { color: #3a86ff; font-weight: bold; }
   </style>
 </head>
 <body>
-
   <div class="header">
     <div class="logo">🎵 BlueMusic</div>
     <div class="badge">Sem Anúncios</div>
   </div>
-
   <div class="container">
     <div id="telaBusca" class="tela ativa">
       <div class="busca-box">
         <input type="text" id="campoBusca" placeholder="Nome da música ou link...">
-        <button class="btn-buscar" onclick="buscarMusicas()">🔍</button>
+        <button class="btn-buscar" id="btnPesquisar">🔍</button>
       </div>
       <div id="resultados">
         <div class="aviso-status">Pesquise o nome da música ou cole o link acima.</div>
       </div>
     </div>
-
     <div id="telaPlayer" class="tela">
       <div class="player-card">
         <div class="vinil-container girando pausado" id="vinil">
@@ -141,100 +71,93 @@
         </div>
         <h3 id="titulo">Nenhuma música</h3>
         <p id="artista">Carregue as músicas baixadas</p>
-
         <div class="tempo-box">
           <span id="tempoAtual">0:00</span>
           <span id="tempoTotal">0:00</span>
         </div>
         <input type="range" id="progresso" value="0" min="0" max="100">
-
         <div class="controles">
-          <button id="btnShuffle" onclick="alternarShuffle()">🔀</button>
-          <button onclick="voltar()">⏮️</button>
-          <button class="btn-play" id="btnPlay" onclick="tocarPausar()">▶️</button>
-          <button onclick="avancar()">⏭️</button>
-          <button id="btnRepeat" onclick="alternarRepeat()">🔁</button>
+          <button id="btnShuffle">🔀</button>
+          <button id="btnVoltar">⏮️</button>
+          <button class="btn-play" id="btnPlay">▶️</button>
+          <button id="btnAvancar">⏭️</button>
+          <button id="btnRepeat">🔁</button>
         </div>
-
         <label class="btn-abrir">
           📂 Selecionar Músicas do Celular
           <input type="file" id="seletor" accept="audio/*" multiple hidden>
         </label>
-
         <div class="playlist" id="listaPlaylist">
           <div class="item-musica" style="text-align:center;">Sua playlist aparecerá aqui</div>
         </div>
       </div>
     </div>
   </div>
-
   <div class="nav-inferior">
-    <button class="nav-btn ativo" id="navBusca" onclick="mudarAba('busca')">
-      <span style="font-size:18px;">⬇️</span>
-      <span>Baixar</span>
-    </button>
-    <button class="nav-btn" id="navPlayer" onclick="mudarAba('player')">
-      <span style="font-size:18px;">💿</span>
-      <span>Meu Player</span>
-    </button>
+    <button class="nav-btn ativo" id="navBusca"><span>⬇️</span><span>Baixar</span></button>
+    <button class="nav-btn" id="navPlayer"><span>💿</span><span>Meu Player</span></button>
   </div>
-
   <audio id="audio"></audio>
-
   <script>
     const SERVIDOR_URL = "https://bluemusic-servidor.onrender.com";
 
-    function mudarAba(aba) {
-      document.getElementById("telaBusca").classList.toggle("ativa", aba === "busca");
-      document.getElementById("telaPlayer").classList.toggle("ativa", aba === "player");
-      document.getElementById("navBusca").classList.toggle("ativo", aba === "busca");
-      document.getElementById("navPlayer").classList.toggle("ativo", aba === "player");
-    }
+    document.getElementById("navBusca").onclick = function() {
+      document.getElementById("telaBusca").classList.add("ativa");
+      document.getElementById("telaPlayer").classList.remove("ativa");
+      this.classList.add("ativo");
+      document.getElementById("navPlayer").classList.remove("ativo");
+    };
 
-    async function buscarMusicas() {
+    document.getElementById("navPlayer").onclick = function() {
+      document.getElementById("telaPlayer").classList.add("ativa");
+      document.getElementById("telaBusca").classList.remove("ativa");
+      this.classList.add("ativo");
+      document.getElementById("navBusca").classList.remove("ativo");
+    };
+
+    document.getElementById("btnPesquisar").onclick = async function() {
       const termo = document.getElementById("campoBusca").value.trim();
-      const boxResultados = document.getElementById("resultados");
+      const box = document.getElementById("resultados");
       if (!termo) return;
-
-      boxResultados.innerHTML = `<div class="aviso-status">⏳ Buscando... (Na primeira vez pode levar 30s para acordar o servidor gratuito)</div>`;
-
+      box.innerHTML = '<div class="aviso-status">⏳ Buscando... (Aguarde até 30s na primeira vez)</div>';
       try {
-        const resp = await fetch(`${SERVIDOR_URL}/buscar?q=${encodeURIComponent(termo)}`);
+        const resp = await fetch(SERVIDOR_URL + "/buscar?q=" + encodeURIComponent(termo));
         const lista = await resp.json();
-
-        if (!lista.length) {
-          boxResultados.innerHTML = `<div class="aviso-status">Nenhum resultado encontrado.</div>`;
-          return;
-        }
-
-        boxResultados.innerHTML = "";
-        lista.forEach((item) => {
+        if (!lista.length) { box.innerHTML = '<div class="aviso-status">Nenhum resultado.</div>'; return; }
+        box.innerHTML = "";
+        lista.forEach(function(item) {
           const card = document.createElement("div");
           card.className = "card-resultado";
-          card.innerHTML = `
-            <div class="thumb-icon">🎵</div>
-            <div class="info-res">
-              <h4>${item.titulo}</h4>
-              <span>Duração: ${item.duracao} • MP3 + Capa</span>
-            </div>
-            <button class="btn-dl" onclick="baixarArquivo(this, '${encodeURIComponent(item.url)}')">⬇️ MP3</button>
-          `;
-          boxResultados.appendChild(card);
+          card.innerHTML = '<div class="thumb-icon">🎵</div><div class="info-res"><h4>' + item.titulo + '</h4><span>' + item.duracao + ' • MP3</span></div>';
+          const btn = document.createElement("button");
+          btn.className = "btn-dl";
+          btn.innerText = "⬇️ MP3";
+          btn.onclick = function() {
+            btn.disabled = true;
+            btn.innerText = "⏳...";
+            window.location.href = SERVIDOR_URL + "/baixar?url=" + encodeURIComponent(item.url);
+            setTimeout(function() { btn.disabled = false; btn.innerText = "⬇️ MP3"; }, 6000);
+          };
+          card.appendChild(btn);
+          box.appendChild(card);
         });
-      } catch (erro) {
-        boxResultados.innerHTML = `<div class="aviso-status">❌ Erro ao conectar no servidor. Verifique se o link do Render está correto.</div>`;
+      } catch (e) {
+        box.innerHTML = '<div class="aviso-status">❌ Erro de conexão: ' + e.message + '</div>';
       }
-    }
+    };
 
-    function baixarArquivo(botao, urlCodificada) {
-      botao.disabled = true;
-      botao.innerText = "⏳...";
-      const linkDownload = `${SERVIDOR_URL}/baixar?url=${urlCodificada}`;
-      window.location.href = linkDownload;
-      setTimeout(() => {
-        botao.disabled = false;
-        botao.innerText = "⬇️ MP3";
-      }, 6000);
-    }
+    const audio = document.getElementById("audio");
+    const vinil = document.getElementById("vinil");
+    const capa = document.getElementById("capa");
+    const btnPlay = document.getElementById("btnPlay");
+    let playlist = [], indiceAtual = 0, aleatorio = false, repetir = false;
 
-          
+    document.getElementById("seletor").onchange = function(e) {
+      playlist = Array.from(e.target.files);
+      if (playlist.length > 0) { indiceAtual = 0; carregarMusica(0); }
+    };
+
+    function carregarMusica(i) {
+      const arq = playlist[i];
+      audio.src = URL.createObjectURL(arq);
+    
